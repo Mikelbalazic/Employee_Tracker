@@ -145,7 +145,7 @@ const addDepartment = async () => {
         .then((answer) => {
             console.log(answer)
             db.addDepartment(answer)
-           
+
         }).then(() =>  questions())
 }
 
@@ -160,10 +160,12 @@ const addRole = async () => {
         {
             type: "input",
             name: "salary",
-            message: "What would you like the name of the role to be?"
+            message: "What salary would you like to allocate?"
         }
     ])
         .then((answer) => {
+            let newTitle = answer.title
+            let newSalary = answer.salary
             db.findAllDepartments()
                 .then(([rows]) => {
                     let departments = rows;
@@ -181,17 +183,24 @@ const addRole = async () => {
                             choices: depChoices
                         }
                     ])
+
+                    .then((answer) => {
+                        let departmentId = answer.dep_id
+
+                        let role = {
+                            title: newTitle,
+                            salary: newSalary,
+                            department_id: departmentId,
+                        }
+                    
                         .then((res) => {
                             console.log(res, 'dep_id', 'and first input answer', answer)
 
-                            let role = {
-
-                            }
-
                             db.addRole(role)
-                                .then(() => console.log(`Added ${employee.first_name} ${employee.last_name} to the database!`))
+                                .then(() => console.log(`Added ${role.id} ${role.title} ${role.salary} to the database!`))
                                 .then(() => questions());
                         })
+                    })
                 })
         })
 }
