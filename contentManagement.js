@@ -166,6 +166,7 @@ const addRole = async () => {
         .then((answer) => {
             let newTitle = answer.title
             let newSalary = answer.salary
+
             db.findAllDepartments()
                 .then(([rows]) => {
                     let departments = rows;
@@ -192,15 +193,11 @@ const addRole = async () => {
                             salary: newSalary,
                             department_id: departmentId,
                         }
-                    
-                        .then((res) => {
-                            console.log(res, 'dep_id', 'and first input answer', answer)
 
                             db.addRole(role)
                                 .then(() => console.log(`Added ${role.id} ${role.title} ${role.salary} to the database!`))
                                 .then(() => questions());
                         })
-                    })
                 })
         })
 }
