@@ -154,8 +154,8 @@ const addRole = async () => {
     await inquirer.prompt([
         {
             type: "input",
-            name: "role_name",
-            message: "What would you like the name of the role to be?"
+            name: "title",
+            message: "What would you like the title of the role to be?"
         },
         {
             type: "input",
@@ -242,8 +242,10 @@ const updateEmployee = async () => {
 
     let { role } = await updateEmployeePart2();
 
-    await db.updateEmployee({ employee_id, role })
+    await db.updateEmployee({ role, employee_id })
     questions()
+
+    console.log(role, employee_id)
 }
 
     let quit = () => {

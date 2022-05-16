@@ -45,7 +45,7 @@ class DB {
     }
 
     updateEmployee({employee_id, role}){
-        console.log("answer from updateEmployee on front end", employee_id, role)
+        console.log("Employee update successful!", employee_id, role)
         return this.connection.promise().query(
             "UPDATE employee SET role_id = ? WHERE id = ?", [role, employee_id]
         )
